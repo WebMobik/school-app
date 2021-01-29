@@ -1,33 +1,67 @@
+import { all, put, call, select, takeEvery } from "redux-saga/effects";
 import {
-  all,
-  put,
-  takeEvery
-} from "redux-saga/effects";
-import { answerQuestion, nextQuestions, redirectQuestions } from "../redux/testsSlice";
+  saveAnswer,
+  nextQuestion,
+  setRedirect,
+  setAccessQuestion,
+  selectRedirectQuestions,
+  selectAccessQuestions,
+  selectSaveAnswers,
+  selectTests
+} from "../redux/testsSlice";
 
-function* watchQuestion() {
-  yield takeEvery("ANSWER_QUESTION", giveQuestion);
+function* watchAnswer() {
+  yield takeEvery("CHECK_ANSWER", checkAnswer);
 }
 
-function* giveQuestion(action) {
-  const variant = action.payload
-  if (variant.redirect !== undefined) {
-    yield put(redirectQuestions(variant))
+function* checkAnswer({ payload }) {
+  const answer = payload;
+  if (answer.value) {
+    yield put(saveAnswer(answer));
+    yield call(checkAccess, answer);
     return;
   }
-  yield put(answerQuestion(variant.right));
+  const redirectQuestions = yield select(selectRedirectQuestions);
+  console.log(redirectQuestions);
+  const findRedirect = Object.keys(redirectQuestions).find((redirect) =>
+    redirect.indexOf(answer)
+  );
+  return yield put(setRedirect(findRedirect));
 }
 
-function* watchNextQuestion() {
-  yield takeEvery("NEXT_QUESTIONS", nextQuestion);
+function* checkAccess() {
+  const accessQuestions = yield select(selectAccessQuestions);
+  const saveAnswers = yield select(selectSaveAnswers);
+  const nextQuestionId = lockQuestion(accessQuestions, saveAnswers);
+  yield put(setAccessQuestion(nextQuestionId));
 }
 
-function* nextQuestion() {
-  yield put(nextQuestions());
+function lockQuestion(trueQuestion, saveAnswers, go = 0) {
+  const newArr = [];
+  for (let i = 0; i < trueQuestion.length; i++) {
+    if (trueQuestion[i].value.length === go) {
+      newArr.push(trueQuestion[i]);
+    }
+    for (let j = 0; j < trueQuestion.length; j++) {
+      saveAnswers.forEach((saveAnswer) => {
+        if (
+          (saveAnswer.id === trueQuestion[i].value[go + j]) &
+          !newArr.includes(trueQuestion[i])
+        ) {
+          newArr.push(trueQuestion[i]);
+        }
+      });
+    }
+  }
+  if (newArr.length > 1) {
+    return lockQuestion(newArr, saveAnswers, ++go);
+  }
+  return newArr[0].id;
 }
 
 function* mySaga() {
-  yield all([watchQuestion(), watchNextQuestion()]);
+  yield put(nextQuestion());
+  yield all([watchAnswer()]);
 }
 
 export default mySaga;

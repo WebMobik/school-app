@@ -1,55 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
-import tests from "./tests";
+import tests from "./modifyTests";
+import questionsByAnswers from "./giveQuestion";
+import redirectQuestion from "./redirectQuestions";
 
 const initialState = {
-  tests: tests,
-  allBalls: 0,
-  currentQuestion: tests.basic[0],
-  section: "basic"
+  tests,
+  questionKey: "",
+  currentQuestion: {},
+  questionsByAnswers,
+  questionId: 0,
+  redirectQuestion,
+  saveAnswers: [],
+  allBalls: 0
 };
 
 const testsSlice = createSlice({
   name: "tests",
   initialState,
   reducers: {
-    answerQuestion: (state, action) => {
-      const right = action.payload;
-      if (state.currentQuestion.answer === false) {
-        right && (state.allBalls += 5)
-      }
-      state.currentQuestion.answer = true
+    nextQuestion: (state, action) => {
+      const currentId = state.questionId;
+      state.questionKey = Object.keys(tests)[currentId];
+      state.currentQuestion = tests[state.questionKey];
+      state.questionId++;
     },
-    nextQuestions: (state, action) => {
-      const id = state.currentQuestion.id;
-      const section = state.section
-      state.currentQuestion = tests[section][id];
+    setRedirect: (state, action) => {
+      state.currentQuestion = redirectQuestion[action.payload];
     },
-    redirectQuestions: (state, action) => {
-      const redirect = action.payload.redirect
-      switch (redirect) {
-        case 'Hooks':
-          state.section = "hooks"
-          state.currentQuestion = tests.hooks[0]
-          break
-        case 'Expert':
-          state.section = "expert"
-          state.currentQuestion = tests.expert[0]
-          break
-        case 'Basic':
-          state.allBalls = 0
-          state.section = "basic"
-          state.currentQuestion = tests.basic[0]
-          break
-        default:
-          state.currentQuestion = tests.basicReact[0]
-      }
+    saveAnswer: (state, action) => {
+      const answer = action.payload;
+      state.saveAnswers.push(answer);
+    },
+    setAccessQuestion: (state, action) => {
+      state.currentQuestion = tests[action.payload];
     }
   }
 });
 
-export const { answerQuestion, nextQuestions, redirectQuestions } = testsSlice.actions;
+export const {
+  saveAnswer,
+  nextQuestion,
+  setRedirect,
+  setAccessQuestion
+} = testsSlice.actions;
 
+export const selectTests = (state) => state.tests.tests;
 export const selectQuestion = (state) => state.tests.currentQuestion;
-export const selectBalls = (state) => state.tests.allBalls;
+export const selectAccessQuestions = (state) => state.tests.questionsByAnswers;
+export const selectSaveAnswers = (state) => state.tests.saveAnswers;
+export const selectQuestionKey = (state) => state.tests.questionKey;
+export const selectRedirectQuestions = (state) => state.tests.redirectQuestion;
 
 export default testsSlice.reducer;

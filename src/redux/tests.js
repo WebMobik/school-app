@@ -4,9 +4,9 @@ const tests = {
       id: 1,
       title: "Что такое React ?",
       variants: [
-        { text: "Библиотека", right: true },
-        { text: "Фреймворк", right: false },
-        { text: "Другое", right: false }
+        { id: "1:1", answer: "Библиотека", right: true },
+        { id: "1:2", answer: "Фреймворк", right: false },
+        { id: "1:3", answer: "Другое", right: false }
       ],
       answer: false
     },
@@ -14,10 +14,11 @@ const tests = {
       id: 2,
       title: "Зачем нужен JSX ?",
       variants: [
-        { text: "Объяснение UI для React", right: true },
-        { text: "Язык разметки", right: false },
-        { text: "HTML разметка для JS", right: false }
+        { id: "2:1", answer: "Объяснение UI для #Answer React", right: true },
+        { id: "2:2", answer: "Язык разметки", right: false },
+        { id: "2:3", answer: "HTML разметка для JS", right: false }
       ],
+      findAnswer: "1:3",
       answer: false
     },
     {

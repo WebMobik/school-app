@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/header";
 import { WrapperQuestions } from "./components/WrappedQuestions/WrapperQuestions";
-import { selectQuestion, selectBalls } from "./redux/testsSlice";
+import { selectQuestion, selectQuestionKey } from "./redux/testsSlice";
 
 const App = () => {
+  const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
   const question = useSelector(selectQuestion);
-  const balls = useSelector(selectBalls);
+  const questionKey = useSelector(selectQuestionKey);
 
-  const handleAnswerClick = (question) => {
-    dispatch({ type: "ANSWER_QUESTION", payload: question });
-  };
+  useEffect(() => {
+    setAnswer(questionKey);
+  }, [questionKey]);
 
-  const handleNextQuestion = (e) => {
-    dispatch({ type: "NEXT_QUESTIONS" });
+  const handleNextQuestion = () => {
+    dispatch({ type: "CHECK_ANSWER", payload: answer });
+    setAnswer("");
   };
 
   return (
@@ -22,21 +24,13 @@ const App = () => {
       <Header />
       <div className="container">
         <h1 className="text-center mt-2">React тест</h1>
-        <h5 className="text-center">Количество баллов: {balls}</h5>
-        <WrapperQuestions
-          question={question}
-          answerQuestion={handleAnswerClick}
-        />
-        {
-          question.variants[1].redirect === undefined && (
-            <button
-              className="btn btn-success m-3 float-end"
-              onClick={handleNextQuestion}
-            >
-              Следующий вопрос {"->"}
-            </button>
-          )
-        }
+        <WrapperQuestions question={question} setAnswer={setAnswer} />
+        <button
+          className="btn btn-success m-3 float-end"
+          onClick={handleNextQuestion}
+        >
+          Следующий вопрос {"->"}
+        </button>
       </div>
     </>
   );
