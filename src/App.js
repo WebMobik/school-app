@@ -11,14 +11,13 @@ const App = () => {
   const questionKey = useSelector(selectQuestionKey);
 
   useEffect(() => {
-    setAnswer(questionKey);
-  }, [questionKey]);
+    setAnswer(question.id);
+  }, [question]);
 
   const handleNextQuestion = () => {
     dispatch({ type: "CHECK_ANSWER", payload: answer });
-    setAnswer("");
+    setAnswer();
   };
-
   return (
     <>
       <Header />

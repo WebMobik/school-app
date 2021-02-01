@@ -1,13 +1,14 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
+import { lockQuestion } from "../helpers/cutStrId";
 import {
   saveAnswer,
-  nextQuestion,
+  cutSaveAnswers,
   setRedirect,
+  setRedirectQuestion,
   setAccessQuestion,
   selectRedirectQuestions,
   selectAccessQuestions,
-  selectSaveAnswers,
-  selectTests
+  selectSaveAnswers
 } from "../redux/testsSlice";
 
 function* watchAnswer() {
@@ -16,51 +17,31 @@ function* watchAnswer() {
 
 function* checkAnswer({ payload }) {
   const answer = payload;
-  if (answer.value) {
-    yield put(saveAnswer(answer));
-    yield call(checkAccess, answer);
-    return;
+  if (!answer.value) {
+    const redirectQuestions = yield select(selectRedirectQuestions);
+    const findRedirect = Object.keys(redirectQuestions).find(
+      (redirect) => +redirect.slice(-1) === answer
+    );
+    return yield put(setRedirect(findRedirect));
   }
-  const redirectQuestions = yield select(selectRedirectQuestions);
-  console.log(redirectQuestions);
-  const findRedirect = Object.keys(redirectQuestions).find((redirect) =>
-    redirect.indexOf(answer)
-  );
-  return yield put(setRedirect(findRedirect));
+  yield put(saveAnswer(answer));
+  yield call(checkAccess, answer);
+  return;
 }
 
-function* checkAccess() {
-  const accessQuestions = yield select(selectAccessQuestions);
-  const saveAnswers = yield select(selectSaveAnswers);
-  const nextQuestionId = lockQuestion(accessQuestions, saveAnswers);
-  yield put(setAccessQuestion(nextQuestionId));
-}
-
-function lockQuestion(trueQuestion, saveAnswers, go = 0) {
-  const newArr = [];
-  for (let i = 0; i < trueQuestion.length; i++) {
-    if (trueQuestion[i].value.length === go) {
-      newArr.push(trueQuestion[i]);
-    }
-    for (let j = 0; j < trueQuestion.length; j++) {
-      saveAnswers.forEach((saveAnswer) => {
-        if (
-          (saveAnswer.id === trueQuestion[i].value[go + j]) &
-          !newArr.includes(trueQuestion[i])
-        ) {
-          newArr.push(trueQuestion[i]);
-        }
-      });
-    }
+function* checkAccess(answer) {
+  if (answer.redirect) {
+    yield put(cutSaveAnswers(answer.redirect));
+    yield put(setRedirectQuestion(answer.redirect));
+  } else {
+    const accessQuestions = yield select(selectAccessQuestions);
+    const saveAnswers = yield select(selectSaveAnswers);
+    const nextQuestionId = lockQuestion(accessQuestions, saveAnswers);
+    yield put(setAccessQuestion(nextQuestionId));
   }
-  if (newArr.length > 1) {
-    return lockQuestion(newArr, saveAnswers, ++go);
-  }
-  return newArr[0].id;
 }
 
 function* mySaga() {
-  yield put(nextQuestion());
   yield all([watchAnswer()]);
 }
 

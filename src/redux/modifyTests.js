@@ -10,9 +10,9 @@ const tests = {
   },
   "Question#2": {
     id: 2,
-    title: "Зачем нужен JSX ?",
+    title: "В Answer#1:1 React, зачем нужен JSX ?",
     answers: [
-      { id: "Answer#2:1", value: "Объяснение UI для #Answer React" },
+      { id: "Answer#2:1", value: "Объяснение UI для React" },
       { id: "Answer#2:2", value: "Язык разметки" },
       { id: "Answer#2:3", value: "HTML разметка для JS" }
     ]
