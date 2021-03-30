@@ -1,0 +1,10 @@
+.mainContent {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.content {
+  height: 70%;
+}
