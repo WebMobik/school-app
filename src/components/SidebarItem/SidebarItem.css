@@ -1,0 +1,7 @@
+.menu-item span {
+  transition: 0.3s;
+}
+
+.menu-item .up {
+  transform: rotate(60deg);
+}
