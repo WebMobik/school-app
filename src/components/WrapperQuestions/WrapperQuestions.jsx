@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WrapperQuestions = ({ question, setAnswer }) => {
+const WrapperQuestions = ({ question, setAnswer }) => {
   return (
     <div className="col-md-8 mt-5 m-auto">
       <div className="card">
@@ -24,3 +24,5 @@ export const WrapperQuestions = ({ question, setAnswer }) => {
     </div>
   );
 };
+
+export default WrapperQuestions

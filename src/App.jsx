@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MainPage from "./pages/Main";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import data from "./config/staticData";
 import Info from "./pages/Info/Info";
-// import { useDispatch, useSelector } from "react-redux";
-// import { selectQuestion, selectQuestionKey } from "./redux/testsSlice";
+import TestApp from "./pages/TestApp/TestApp";
 
 const App = () => {
-  // const [answer, setAnswer] = useState(null);
-  // const dispatch = useDispatch();
-  // const question = useSelector(selectQuestion);
-  // const questionKey = useSelector(selectQuestionKey);
-
-  // useEffect(() => {
-  //   setAnswer(question.id);
-  // }, [question]);
-
-  // const handleNextQuestion = () => {
-  //   dispatch({ type: "CHECK_ANSWER", payload: answer });
-  //   setAnswer();
-  // };
-
-  console.log(Object.entries(data)[0][1]);
-
   return (
     <Router>
       <Switch>
@@ -38,6 +21,9 @@ const App = () => {
               </Route>
             )
           )}
+          <Route path="/testOne">
+            <TestApp />
+          </Route>
         </Sidebar>
       </Switch>
     </Router>

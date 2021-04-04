@@ -5,3 +5,7 @@
 .menu-item .up {
   transform: rotate(60deg);
 }
+
+.menu-item a {
+  display: block;
+}
