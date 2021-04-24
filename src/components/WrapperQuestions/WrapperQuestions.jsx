@@ -7,14 +7,14 @@ const WrapperQuestions = ({ question, setAnswer }) => {
         <div className="card-body">
           <h5 className="card-title text-center">{question.title}</h5>
           <div>
-            {question.answers.map((answer, index) => {
+            {question.variants.map((variant, index) => {
               return (
                 <button
                   key={index}
                   className={"d-block mt-2 btn btn-primary"}
-                  onClick={() => setAnswer(answer)}
+                  onClick={() => setAnswer({question, variant, id: question.id})}
                 >
-                  {answer.value}
+                  {variant.answer}
                 </button>
               );
             })}

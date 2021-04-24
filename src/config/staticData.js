@@ -193,19 +193,19 @@ const data = {
             `
     }
   ],
-  Тест: [
-    {
-      id: 12,
-      title: "Тест 1",
-      page: "/testOne",
-      content: `
-              Тест 1
-            `,
-      example: `
-                Вопросы...
-            `
-    }
-  ]
 };
+
+export const profileList = [
+    {
+        id: 13,
+        title: "Профиль",
+        page: "/profile",
+    },
+    {
+        id: 14,
+        title: "Выйти",
+        page: "/signout",
+    }
+]
 
 export default data;

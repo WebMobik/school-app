@@ -3,7 +3,7 @@ import styles from "./MainPage.module.css";
 
 const MainPage = () => {
   return (
-    <div className={styles.mainContent}>
+    <div className={`${styles.mainContent} content`}>
       <div className={styles.content}>
         <h1>Wellcome to HTML-keys app</h1>
         <p>

@@ -1,10 +1,13 @@
 import React from "react";
 import MainPage from "./pages/Main";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import data from "./config/staticData";
+import Sidebar from "./components/Sidebar";
+import Signin from './components/Signin'
 import Info from "./pages/Info/Info";
 import TestApp from "./pages/TestApp/TestApp";
+import auth from './api/helpers'
+import Profile from "./components/Profile/Profile";
 
 const App = () => {
   return (
@@ -21,9 +24,19 @@ const App = () => {
               </Route>
             )
           )}
-          <Route path="/testOne">
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/test">
             <TestApp />
           </Route>
+          <Route path="/sign-in">
+            <Signin />
+          </Route>
+          <Route path="/signout" render={() => {
+            auth.clearJWT()
+            return <Redirect to="/" />
+          }} />
         </Sidebar>
       </Switch>
     </Router>

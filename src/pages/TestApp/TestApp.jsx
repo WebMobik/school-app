@@ -1,37 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { selectQuestion, selectQuestionKey } from "../../redux/testsSlice";
+import React, { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import WrapperQuestions from '../../components/WrapperQuestions'
+import { giveAnswer, selectCurrentQuestion } from '../../redux/testsSlice';
 
 const TestApp = () => {
-    const [answer, setAnswer] = useState(null);
-    const dispatch = useDispatch();
-    const question = useSelector(selectQuestion);
-    const questionKey = useSelector(selectQuestionKey);
+  const dispatch = useDispatch()
+  const currentQuestion = useSelector(selectCurrentQuestion)
+  const questionAnswer = useRef({})
 
-    useEffect(() => {
-      setAnswer(question.id);
-    }, [question]);
+  const handleNextQuestion = () => {
+    dispatch(giveAnswer(questionAnswer.current))
+  }
 
-    const handleNextQuestion = () => {
-      dispatch({ type: "CHECK_ANSWER", payload: answer });
-      setAnswer();
-    };
+  const selectVariant = (variant) => {
+    questionAnswer.current = variant
+    console.log(questionAnswer);
+  }
 
-    return (
-        <div>
-          <div className="container">
-            <h1 className="text-center mt-2">React тест</h1>
-            <WrapperQuestions question={question} setAnswer={setAnswer} />
-            <button
-              className="btn btn-success m-3 float-end"
-              onClick={handleNextQuestion}
-            >
-              Следующий вопрос {"->"}
-            </button>
-          </div>
-        </div>
-    )
+  return (
+    <div className="container">
+      <h1 className="text-center mt-2 text-center">HTML базовый тест</h1>
+      <WrapperQuestions question={currentQuestion} setAnswer={selectVariant} />
+      <button
+        className="btn btn-success m-3 float-end"
+        onClick={handleNextQuestion}
+      >
+        Следующий вопрос
+      </button>
+    </div>
+  )
 };
 
 export default TestApp

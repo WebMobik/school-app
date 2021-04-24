@@ -33,6 +33,20 @@ li a {
 }
 
 .sidebar {
+  overflow: auto;
   min-width: 300px;
   padding: 20px;
+}
+
+.sidebar-item {
+  padding: 6px 14px;
+}
+
+.sidebar-item a {
+  display: block;
+  width: 100%;
+}
+
+.content {
+  padding: 40px;
 }
