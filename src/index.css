@@ -28,28 +28,8 @@ li a {
   color: #fff !important;
 }
 
-.modal-block {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  transition: 0.7s; /* TODO: разобрать, почему не рабоатет transition и добавить анимации */
-}
-
-.sidebar {
-  overflow: auto;
-  min-width: 300px;
-  padding: 20px;
-}
-
-.sidebar-item {
-  padding: 6px 14px;
-}
-
-.sidebar-item a {
-  display: block;
-  width: 100%;
+.w-40 {
+  width: 400px;
 }
 
 .content {

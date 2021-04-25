@@ -14,6 +14,7 @@ const testsSlice = createSlice({
   initialState,
   reducers: {
     giveAnswer: (state, action) => {
+      console.log(action.payload);
       const { question, variant, id } = action.payload;
       state.saveAnswers.push(question);
       variant.right && (state.allBalls += 50);

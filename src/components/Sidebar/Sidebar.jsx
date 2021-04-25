@@ -7,6 +7,8 @@ import auth from "./../../api/helpers";
 import { toggleModal, visibleModal } from "../../redux/testsSlice";
 import Modal from "../Modal";
 
+import "./Sidebar.css";
+
 const Sidebar = ({ children }) => {
   const isAuth = auth.isAuthenticate();
   const dispatch = useDispatch();

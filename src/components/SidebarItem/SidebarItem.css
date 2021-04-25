@@ -9,3 +9,12 @@
 .menu-item a {
   display: block;
 }
+
+.sidebar-item {
+  padding: 6px 14px;
+}
+
+.sidebar-item a {
+  display: block;
+  width: 100%;
+}

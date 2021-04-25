@@ -1,34 +1,28 @@
-import React, { useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import WrapperQuestions from '../../components/WrapperQuestions'
-import { giveAnswer, selectCurrentQuestion } from '../../redux/testsSlice';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import WrapperQuestions from "../../components/WrapperQuestions";
+import { giveAnswer, selectCurrentQuestion } from "../../redux/testsSlice";
 
 const TestApp = () => {
-  const dispatch = useDispatch()
-  const currentQuestion = useSelector(selectCurrentQuestion)
-  const questionAnswer = useRef({})
+  const dispatch = useDispatch();
+  const currentQuestion = useSelector(selectCurrentQuestion);
 
-  const handleNextQuestion = () => {
-    dispatch(giveAnswer(questionAnswer.current))
-  }
+  const handleSubmitQuestion = (e) => {
+    e.preventDefault();
+    dispatch(giveAnswer(e.target.value));
+  };
 
-  const selectVariant = (variant) => {
-    questionAnswer.current = variant
-    console.log(questionAnswer);
-  }
+  // TODO: настроить правильное прохождение теста
 
   return (
     <div className="container">
       <h1 className="text-center mt-2 text-center">HTML базовый тест</h1>
-      <WrapperQuestions question={currentQuestion} setAnswer={selectVariant} />
-      <button
-        className="btn btn-success m-3 float-end"
-        onClick={handleNextQuestion}
-      >
-        Следующий вопрос
-      </button>
+      <WrapperQuestions
+        question={currentQuestion}
+        submitQuestion={handleSubmitQuestion}
+      />
     </div>
-  )
+  );
 };
 
-export default TestApp
+export default TestApp;
