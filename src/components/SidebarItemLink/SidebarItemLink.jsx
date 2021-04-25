@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SidebarMenuItem = ({ title, link }) => {
-  return (
-    <Link to={link} className="link-dark rounded">
+const SidebarMenuItem = ({ title, link="", ...props }) => {
+  return link ? (
+    <Link {...props} to={link} className="nav-link text-white">
       {title}
     </Link>
+  ) : (
+    <div {...props} className="pointer nav-link text-white">
+      {title}
+    </div>
   );
 };
 

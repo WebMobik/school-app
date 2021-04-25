@@ -9,11 +9,10 @@ import MainPage from "./pages/Main";
 import data from "./config/staticData";
 import Sidebar from "./components/Sidebar";
 import Signin from "./components/Signin";
-import Info from "./pages/Info/Info";
+import Profile from "./components/Profile/Profile";
+import ItemInfo from "./components/ItemInfo";
 import TestApp from "./pages/TestApp/TestApp";
 import auth from "./api/helpers";
-import Profile from "./components/Profile/Profile";
-import Modal from "./components/Modal";
 
 const App = () => {
   return (
@@ -26,7 +25,7 @@ const App = () => {
           {Object.entries(data)[0][1].map(
             ({ id, page, title, content, example }) => (
               <Route key={id} path={page}>
-                <Info title={title} content={content} example={example} />
+                <ItemInfo title={title} content={content} example={example} />
               </Route>
             )
           )}

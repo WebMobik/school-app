@@ -8,6 +8,7 @@ import { toggleModal, visibleModal } from "../../redux/testsSlice";
 import Modal from "../Modal";
 
 import "./Sidebar.css";
+import SidebarMenuItem from "../SidebarItemLink/SidebarItemLink";
 
 const Sidebar = ({ children }) => {
   const isAuth = auth.isAuthenticate();
@@ -34,9 +35,10 @@ const Sidebar = ({ children }) => {
           {Object.entries(data).map((item, index) => (
             <SidebarItem key={index} titleMenu={item[0]} childItems={item[1]} />
           ))}
-          <li className="sidebar-item" onClick={openModal}>
+          <SidebarMenuItem title="Тест" onClick={openModal}/>
+          {/* <li className="sidebar-item" onClick={openModal}>
             Тест
-          </li>
+          </li> */}
           <li className="border-top my-3"></li>
           {isAuth.session ? (
             <SidebarItem
@@ -44,9 +46,7 @@ const Sidebar = ({ children }) => {
               childItems={profileList}
             />
           ) : (
-            <Link to="/sign-in" className="nav-link text-white">
-              Войти
-            </Link>
+            <SidebarMenuItem title="Войти" link="/sign-in" />
           )}
         </ul>
         {isOpenModal && (

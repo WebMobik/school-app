@@ -22,7 +22,7 @@ const SidebarItem = ({ titleMenu, childItems }) => {
       <ul className="btn-toggle-nav">
         {linksView &&
           childItems.map(({ title, page, id }) => (
-            <li key={id} className="mt-2">
+            <li key={id}>
               <SidebarItemLink title={title} link={page} />
             </li>
           ))}
