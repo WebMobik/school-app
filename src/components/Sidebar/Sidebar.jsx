@@ -35,18 +35,20 @@ const Sidebar = ({ children }) => {
           {Object.entries(data).map((item, index) => (
             <SidebarItem key={index} titleMenu={item[0]} childItems={item[1]} />
           ))}
-          <SidebarMenuItem title="Тест" onClick={openModal}/>
-          {/* <li className="sidebar-item" onClick={openModal}>
-            Тест
-          </li> */}
-          <li className="border-top my-3"></li>
           {isAuth.session ? (
-            <SidebarItem
-              titleMenu={isAuth.user.name}
-              childItems={profileList}
-            />
+            <>
+              <SidebarMenuItem title="Тест" onClick={openModal}/>
+              <li className="border-top my-3"></li>
+              <SidebarItem
+                titleMenu={isAuth.user.name}
+                childItems={profileList}
+              />
+            </>
           ) : (
-            <SidebarMenuItem title="Войти" link="/sign-in" />
+            <>
+              <li className="border-top my-3"></li>
+              <SidebarMenuItem title="Войти" link="/sign-in" />
+            </>
           )}
         </ul>
         {isOpenModal && (

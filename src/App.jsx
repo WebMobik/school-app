@@ -36,9 +36,11 @@ const App = () => {
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path="/test">
-            <TestApp />
-          </Route>
+          {auth.isAuthenticate().session && (
+            <Route path="/test">
+              <TestApp />
+            </Route>
+          )}
           <Route path="/sign-in">
             <Signin />
           </Route>
