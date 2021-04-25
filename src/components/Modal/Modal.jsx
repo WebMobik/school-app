@@ -20,7 +20,11 @@ const ModalView = ({ title, content, btnSuccess }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">{title}</h5>
-              <button type="button" className="btn-close"></button>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={closeModal}>
+              </button>
             </div>
             <div className="modal-body">
               <p>{content}</p>
@@ -31,14 +35,14 @@ const ModalView = ({ title, content, btnSuccess }) => {
                 className="btn btn-secondary"
                 onClick={closeModal}
               >
-                Выйти
+                Отмена
               </button>
               <button
                 type="button"
                 className="btn btn-primary"
                 onClick={btnSuccess}
               >
-                Oк
+                Начать
               </button>
             </div>
           </div>

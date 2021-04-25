@@ -11,7 +11,7 @@ const TestApp = () => {
   return (
     <div className="container">
       <h1 className="text-center mt-2 text-center">HTML базовый тест</h1>
-      {!isFinal ? <Question question={currentQuestion} /> : <Redirect to="/" />}
+      {!isFinal ? <Question question={currentQuestion} /> : <Redirect to="/result" />}
     </div>
   );
 };

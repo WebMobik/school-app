@@ -5,16 +5,20 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import MainPage from "./pages/Main";
+import { useSelector } from "react-redux";
+import { selectIsFinal } from "./redux/testsSlice";
 import data from "./config/staticData";
+import MainPage from "./pages/Main";
 import Sidebar from "./components/Sidebar";
 import Signin from "./components/Signin";
 import Profile from "./components/Profile/Profile";
 import ItemInfo from "./components/ItemInfo";
+import Result from "./components/Result";
 import TestApp from "./pages/TestApp/TestApp";
 import auth from "./api/helpers";
 
 const App = () => {
+  const isTestFinal = useSelector(selectIsFinal)
   return (
     <Router>
       <Switch>
@@ -38,6 +42,11 @@ const App = () => {
           <Route path="/sign-in">
             <Signin />
           </Route>
+          {isTestFinal && (
+            <Route path="/result">
+              <Result />
+            </Route>
+          )}
           <Route
             path="/signout"
             render={() => {
@@ -45,6 +54,9 @@ const App = () => {
               return <Redirect to="/" />;
             }}
           />
+          <Route>
+            <Redirect to="/" />
+          </Route>
         </Sidebar>
       </Switch>
     </Router>

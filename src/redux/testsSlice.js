@@ -31,13 +31,16 @@ const testsSlice = createSlice({
         state.currentQuestion = state.tests[currentQuestionId]
       }
     },
+    changeFinalState: (state) => {
+      state.isFinal = false
+    },
     toggleModal: (state) => {
       state.modalOpen = !state.modalOpen;
     }
   }
 });
 
-export const { changeCurrentAnswer, nextQuestion, toggleModal } = testsSlice.actions;
+export const { changeCurrentAnswer, nextQuestion, toggleModal, changeFinalState } = testsSlice.actions;
 
 export const selectIsFinal = (state) => state.tests.isFinal;
 export const selectAllBalls = (state) => state.tests.allBalls;

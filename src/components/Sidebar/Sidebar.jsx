@@ -50,7 +50,11 @@ const Sidebar = ({ children }) => {
           )}
         </ul>
         {isOpenModal && (
-          <Modal title="text" content="content" btnSuccess={onSuccessModal} />
+          <Modal
+            title="Вы действительно хотите начать тест ?"
+            content="Если тест начнется, вы уже не сможете пользоваться справочником !"
+            btnSuccess={onSuccessModal}
+          />
         )}
       </div>
       {children}

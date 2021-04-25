@@ -41,13 +41,12 @@ const getUser = async (id) => {
   }
 };
 
-const testResult = async (result, credentials) => {
+const testResult = async (result) => {
   try {
     const response = await fetch("/api/test/html", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
-        Authorized: "Bearer " + credentials.t
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(result)
     });

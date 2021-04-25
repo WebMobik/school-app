@@ -10,8 +10,8 @@ const Profile = () => {
     
     useEffect(() => {
         const { _id } = auth.getUser()
-        getUser(_id).then(data => {
-            setUser(data)
+        getUser(_id).then(({name, tests}) => {
+            setUser({name, tests})
         })
     }, [])
 
@@ -19,9 +19,18 @@ const Profile = () => {
         <div className="profile content">
             <h1 className="user-name">{user.name}</h1>
             {user.tests.length ? (
-                <div>
-                    Здесь написаны тесты и их количество
-                </div> 
+                <div className="mt-3">
+                    <h2>Результаты тестов:</h2>
+                    <ul className="fs-5">
+                        {user.tests.map((res, index) => (
+                            <li key={index} className="mt-3">
+                                Количество баллов: {res.count}
+                                <br />
+                                Дата сдачи теста: {new Date(res.date).toLocaleDateString()}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             ) : (
                 <h2 className="mt-5">Вы ещё не прошли тест ни разу !</h2>
             )}
