@@ -2,7 +2,7 @@ const url = process.env.BASE_URL || "http://localhost:8080/api";
 
 const signin = async (user) => {
   try {
-    const response = await fetch(`${url}/users/signin`, {
+    const response = await fetch(`${url}/auth/signin`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -19,7 +19,7 @@ const signin = async (user) => {
 
 const signout = async () => {
   try {
-    const response = await fetch(`${url}/users/signout`, { method: "GET" });
+    const response = await fetch(`${url}/auth/signout`);
     return await response.json();
   } catch (err) {
     console.log(err);
@@ -41,12 +41,14 @@ const getUser = async (id) => {
   }
 };
 
-const testResult = async (result) => {
+const testResult = async (credentials, result) => {
+  console.log(result);
   try {
-    const response = await fetch("/api/test/html", {
+    const response = await fetch(`${url}/test/html`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": 'application/json',
+        Authorization: 'Bearer ' + credentials
       },
       body: JSON.stringify(result)
     });

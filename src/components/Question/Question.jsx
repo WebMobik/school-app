@@ -23,7 +23,7 @@ const Question = ({ question }) => {
           <form onSubmit={handleNextQuestion} className="d-flex flex-column">
             {question.variants.map((variant, index) => (
               <Answer
-                key={index}
+                key={+(String(question.id)+index)}
                 id={question.id}
                 index={index} 
                 variant={variant}

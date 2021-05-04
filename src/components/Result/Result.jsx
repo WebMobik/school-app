@@ -11,10 +11,10 @@ const Result = () => {
     const dispatch = useDispatch();
     const allBalls = useSelector(selectAllBalls)
 
-    useEffect(() => {
-        const { _id } = auth.getUser()
-        const data = {_id, tests: {count: allBalls}}
-        testResult(data)
+    useEffect(() => { // TODO: Ошибка в тестах, при пустых ответах выдает 600 баллов
+        const { user, session } = auth.isAuthenticate()
+        const data = {_id: user._id, test: {count: allBalls}}
+        testResult(session, data)
     });
 
     const handleBackToHome = () => {
