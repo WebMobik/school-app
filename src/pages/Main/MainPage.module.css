@@ -1,9 +1,5 @@
 .mainContent {
   display: flex;
-  align-items: center;
   text-align: center;
-}
-
-.content {
-  height: 70%;
+  margin-top: 150px;
 }

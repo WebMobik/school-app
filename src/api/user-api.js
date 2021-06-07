@@ -42,7 +42,6 @@ const getUser = async (id) => {
 };
 
 const testResult = async (credentials, result) => {
-  console.log(result);
   try {
     const response = await fetch(`${url}/test/html`, {
       method: "PUT",

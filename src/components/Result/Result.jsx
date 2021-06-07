@@ -27,7 +27,7 @@ const Result = () => {
             <div className="content text-center m-auto">
                 <h1>Общее количество баллов за тест: {allBalls}</h1>
                 <p>{switchTextResult(allBalls)}</p>
-                <button onClick={handleBackToHome}>
+                <button onClick={handleBackToHome} className="btn btn-success">
                     Вернуться на главную
                 </button>
             </div>

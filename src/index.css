@@ -38,8 +38,19 @@ li a {
 
 .content {
   padding: 40px;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.btn {
+  min-width: 100px !important;
+}
+
+.profile {
+  overflow: auto;
+  width: 100%;
 }

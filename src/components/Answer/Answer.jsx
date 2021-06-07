@@ -5,7 +5,8 @@ const Answer = ({id, index, variant, changeVariant}) => {
         <div className="answer d-flex mt-3">
             <input
                 className="form-check-input me-2"
-                type="checkbox"
+                name="question"
+                type="radio"
                 id={`question${index}.${id}`}
                 onChange={() => changeVariant(variant)}
             />

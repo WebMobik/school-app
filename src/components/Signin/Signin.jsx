@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { signin } from "../../api/user-api";
 import auth from "../../api/helpers";
+import { toggleUserAuthenticate } from "../../redux/testsSlice";
 
 const Signin = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: null,
     password: null,
@@ -19,6 +22,7 @@ const Signin = () => {
         console.log(data.error);
       }
       auth.authenticate(data);
+      dispatch(toggleUserAuthenticate())
       history.replace("/");
     });
   };

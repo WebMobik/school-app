@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Answer from "../Answer/Answer";
-import { changeCurrentAnswer, nextQuestion } from '../../redux/testsSlice'
+import { nextQuestion } from '../../redux/testsSlice'
 
 const Question = ({ question }) => {
-  const dispatch = useDispatch();
+  const [currentAnswer, setCurrentAnswer] = useState({})
+  const dispatch = useDispatch()
 
   const changeAnswer = (answer) => {
-    dispatch(changeCurrentAnswer(answer))
+    setCurrentAnswer(answer)
   }
 
   const handleNextQuestion = (e) => {
     e.preventDefault()
-    dispatch(nextQuestion())
+    dispatch(nextQuestion(currentAnswer))
+    setCurrentAnswer({})
   }
 
   return (
